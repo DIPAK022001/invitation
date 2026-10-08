@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#060907">
+  <meta name="description" content="Dipak & Krupa — Royal Indian Sagayi Edition">
+  <meta property="og:title" content="Dipak × Krupa — Shubh Sagayi">
+  <meta property="og:description" content="Royal Engagement Celebration of Dipak & Krupa on 20 December 2026.">
+
+  <title>Dipak × Krupa — Royal Engagement Edition</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070a08;
+      --bg-card: #0d120f;
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-dark: #917224;
+      --ivory: #fcf9f2;
+      --ivory-dim: #cfc7b6;
+      --crimson: #631720;
+      --border-arch: rgba(212, 175, 55, 0.35);
+
+      --serif-royal: "Cinzel Decorative", Georgia, serif;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Montserrat", sans-serif;
+
+      --page: min(1200px, calc(100% - 40px));
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ivory);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    /* FALLING PETALS CANVAS */
+    #petalCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* ROYAL WAX SEAL ENVELOPE OVERLAY */
+    .seal-curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: radial-gradient(circle at center, #131a15 0%, #060907 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+    }
+
+    .seal-curtain.opened {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .shubh-symbol {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--gold-light);
+      letter-spacing: .4em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+
+    .wax-seal {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #8f2631, #480e14);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.3), 0 0 0 5px rgba(212, 175, 55, 0.4);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+
+    .wax-seal:hover {
+      transform: scale(1.06);
+      box-shadow: 0 20px 45px rgba(212, 175, 55, 0.35), inset 0 2px 4px rgba(255,255,255,0.4), 0 0 0 7px var(--gold);
+    }
+
+    .wax-seal::after {
+      content: "D × K";
+      font-family: var(--serif-royal);
+      color: var(--gold-light);
+      font-size: 24px;
+      letter-spacing: 2px;
+      text-shadow: 1px 2px 3px rgba(0,0,0,0.8);
+    }
+
+    .seal-instruction {
+      margin-top: 35px;
+      font-size: 10px;
+      letter-spacing: .35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      animation: pulseText 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { opacity: .4; }
+      50% { opacity: 1; }
+    }
+
+    /* MUSIC CONTROLLER */
+    .music-btn {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      z-index: 500;
+      background: rgba(13, 18, 15, 0.85);
+      border: 1px solid var(--gold);
+      padding: 10px 18px;
+      border-radius: 40px;
+      color: var(--gold-light);
+      font-size: 9px;
+      letter-spacing: .25em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(8px);
+      transition: .3s ease;
+    }
+
+    .music-btn:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .music-wave {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .music-btn.active .music-wave {
+      animation: ripple 1.2s infinite ease-in-out;
+    }
+
+    @keyframes ripple {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.6); background: #fff; }
+    }
+
+    /* FIXED HEADER */
+    .royal-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 200;
+      mix-blend-mode: difference;
+    }
+
+    .royal-logo {
+      font-family: var(--serif-royal);
+      font-size: 20px;
+      color: var(--ivory);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    .royal-date-badge {
+      font-size: 10px;
+      letter-spacing: .3em;
+      color: var(--gold);
+    }
+
+    /* HERO STAGE */
+    .hero-stage {
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: radial-gradient(circle at 50% 40%, rgba(20, 30, 24, 0.7) 0%, var(--bg) 90%);
+    }
+
+    .jharokha-frame {
+      max-width: 900px;
+      width: 100%;
+      border: 1px solid var(--border-arch);
+      border-radius: 180px 180px 20px 20px;
+      padding: 80px 30px 60px;
+      position: relative;
+      box-shadow: 0 0 70px rgba(0,0,0,0.8), inset 0 0 50px rgba(212, 175, 55, 0.05);
+      background: rgba(13, 18, 15, 0.4);
+      backdrop-filter: blur(4px);
+    }
+
+    .jharokha-frame::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px dashed rgba(212, 175, 55, 0.25);
+      border-radius: 172px 172px 14px 14px;
+      pointer-events: none;
+    }
+
+    .ganesh-mantra {
+      font-family: var(--serif);
+      font-size: 19px;
+      color: var(--gold);
+      letter-spacing: .25em;
+      margin-bottom: 25px;
+    }
+
+    .sub-head {
+      font-size: 9px;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      color: var(--ivory-dim);
+      margin-bottom: 25px;
+    }
+
+    .hero-couplename {
+      font-family: var(--serif-royal);
+      font-size: clamp(40px, 7vw, 92px);
+      line-height: 1.1;
+      font-weight: 400;
+      color: var(--gold-light);
+      text-shadow: 0 4px 30px rgba(0,0,0,0.9);
+      margin: 10px 0;
+    }
+
+    .hero-couplename span {
+      display: inline-block;
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--gold);
+      font-size: clamp(28px, 4vw, 55px);
+      margin: 0 15px;
+    }
+
+    .royal-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px auto;
+      width: 220px;
+    }
+
+    .royal-divider::before, .royal-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .royal-divider svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--gold);
+    }
+
+    .hero-lead-text {
+      max-width: 580px;
+      margin: 0 auto 35px;
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--ivory-dim);
+      font-style: italic;
+    }
+
+    .hero-time-tag {
+      font-size: 11px;
+      letter-spacing: .3em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* SECTION SCAFFOLDING */
+    section {
+      padding: 130px 0;
+      position: relative;
+    }
+
+    .container {
+      width: var(--page);
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 9px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--serif-royal);
+      font-size: clamp(34px, 5.5vw, 62px);
+      text-align: center;
+      color: var(--ivory);
+      font-weight: 400;
+      margin-bottom: 60px;
+    }
+
+    /* OUR STORY ARCH SECTION */
+    .story-arch-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .arch-image-holder {
+      position: relative;
+      border-radius: 200px 200px 10px 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-arch);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    }
+
+    .arch-image-holder img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      filter: brightness(.92) contrast(1.05);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .arch-image-holder:hover img {
+      transform: scale(1.05);
+    }
+
+    .story-card-text {
+      padding: 20px;
+    }
+
+    .story-card-text h3 {
+      font-family: var(--serif);
+      font-size: 42px;
+      line-height: 1.15;
+      font-weight: 400;
+      color: var(--gold-light);
+      margin-bottom: 25px;
+    }
+
+    .story-card-text p {
+      font-size: 14px;
+      line-height: 2.1;
+      color: var(--ivory-dim);
+      margin-bottom: 20px;
+    }
+
+    .shloka-quote {
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+      margin-top: 30px;
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--gold);
+    }
+
+    /* RITUALS / ITINERARY (JHAROKHA TILES) */
+    .timeline-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .ritual-box {
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 120px 120px 12px 12px;
+      padding: 55px 25px 40px;
+      text-align: center;
+      position: relative;
+      transition: transform .4s ease, border-color .4s ease;
+    }
+
+    .ritual-box:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+    }
+
+    .ritual-order {
+      font-family: var(--serif-royal);
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .ritual-time {
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: var(--ivory-dim);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .ritual-box h4 {
+      font-family: var(--serif);
+      font-size: 28px;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    .ritual-box p {
+      font-size: 12.5px;
+      color: var(--ivory-dim);
+      line-height: 1.8;
+    }
+
+    /* COUNTDOWN BANNER */
+    .countdown-wrap {
+      text-align: center;
+      padding: 110px 0;
+      background: linear-gradient(180deg, var(--bg) 0%, #101712 50%, var(--bg) 100%);
+      border-top: 1px solid var(--border-arch);
+      border-bottom: 1px solid var(--border-arch);
+    }
+
+    .counter-flex {
+      display: flex;
+      justify-content: center;
+      gap: clamp(20px, 6vw, 90px);
+      margin-top: 50px;
+    }
+
+    .time-num {
+      font-family: var(--serif-royal);
+      font-size: clamp(45px, 7vw, 90px);
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .time-lbl {
+      font-size: 9px;
+      letter-spacing: .3em;
+      color: var(--gold);
+      margin-top: 12px;
+    }
+
+    /* CELEBRATION VENUE & MAP */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: stretch;
+    }
+
+    .venue-details-panel {
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 12px;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .venue-title-sub {
+      font-family: var(--serif-royal);
+      font-size: 26px;
+      color: var(--gold);
+      margin-bottom: 30px;
+    }
+
+    .venue-meta-block {
+      margin-bottom: 25px;
+    }
+
+    .venue-meta-block span {
+      display: block;
+      font-size: 9px;
+      letter-spacing: .25em;
+      color: var(--ivory-dim);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .venue-meta-block h5 {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--gold-light);
+      font-weight: 400;
+    }
+
+    .venue-meta-block p {
+      font-size: 14px;
+      color: var(--ivory-dim);
+    }
+
+    .venue-actions {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .btn-royal {
+      display: inline-flex;
+      align-items: center;
+      padding: 13px 26px;
+      border: 1px solid var(--gold);
+      font-size: 9px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold-light);
+      border-radius: 30px;
+      transition: all .35s ease;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .btn-royal:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .map-frame-box {
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 12px;
+      overflow: hidden;
+      min-height: 400px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .map-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      min-height: 400px;
+    }
+
+    /* GALLERY MASONRY */
+    .gallery-trio {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-cell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 100px 100px 10px 10px;
+      border: 1px solid var(--border-arch);
+      cursor: pointer;
+    }
+
+    .gallery-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .9s ease, filter .5s;
+      filter: saturate(.85);
+    }
+
+    .gallery-cell:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.1);
+    }
+
+    .gallery-cell:nth-child(1) { grid-column: 1 / 5; height: 420px; }
+    .gallery-cell:nth-child(2) { grid-column: 5 / 9; height: 480px; margin-top: -30px; }
+    .gallery-cell:nth-child(3) { grid-column: 9 / 13; height: 420px; }
+
+    /* RSVP FINAL BLESSING */
+    .rsvp-heritage {
+      text-align: center;
+      padding: 130px 20px;
+      background: radial-gradient(circle at center, #111a14 0%, var(--bg) 90%);
+      border-top: 1px solid var(--border-arch);
+    }
+
+    .rsvp-heritage p {
+      max-width: 520px;
+      margin: 0 auto 40px;
+      font-size: 15px;
+      color: var(--ivory-dim);
+      line-height: 2;
+    }
+
+    .rsvp-whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 45px;
+      background: linear-gradient(135deg, #1f422c, #0e2718);
+      border: 1px solid var(--gold);
+      border-radius: 50px;
+      color: var(--gold-light);
+      font-size: 10px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: .4s ease;
+    }
+
+    .rsvp-whatsapp-btn:hover {
+      background: var(--gold);
+      color: var(--bg);
+      transform: scale(1.03);
+    }
+
+    /* FOOTER */
+    .royal-footer {
+      padding: 60px 20px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 10px;
+      letter-spacing: .25em;
+      color: var(--gold-dark);
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(0,0,0,.96);
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: .4s;
+    }
+
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 8px; border: 1px solid var(--gold); }
+    .lightbox-close {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      color: #fff;
+      font-size: 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .story-arch-grid, .venue-grid { grid-template-columns: 1fr; }
+      .timeline-row { grid-template-columns: 1fr; }
+      .ritual-box { border-radius: 60px 60px 10px 10px; padding: 40px 20px; }
+      .gallery-trio { grid-template-columns: 1fr; }
+      .gallery-cell:nth-child(1),
+      .gallery-cell:nth-child(2),
+      .gallery-cell:nth-child(3) { grid-column: span 1; height: 350px; margin-top: 0; }
+    }
+  </style>
+</head>
+
+<body class="locked">
+
+  <!-- FALLING FESTIVE PETALS -->
+  <canvas id="petalCanvas"></canvas>
+
+  <!-- KANKOTRI WAX SEAL ENVELOPE (INTERACTIVE UNVEIL) -->
+  <div class="seal-curtain" id="sealCurtain">
+    <div class="shubh-symbol">|| શ્રી ગણેશાય નમઃ ||</div>
+    <div class="wax-seal" id="waxSealBtn" title="Click to break seal & open invitation"></div>
+    <div class="seal-instruction">TOUCH SEAL TO UNVEIL INVITATION</div>
+  </div>
+
+  <!-- ROYAL BACKGROUND AUDIO (Royalty-free Indian Classical Bansuri/Shehnai) -->
+  <audio id="royalAudio" loop preload="none">
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939fd99a5.mp3?filename=indian-flute-meditation-122941.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-btn" id="musicBtn" aria-label="Toggle Ceremony Music">
+    <span class="music-wave"></span>
+    <span id="musicStatus">MUSIC : OFF</span>
+  </button>
+
+  <!-- MINIMAL HEADER -->
+  <header class="royal-header">
+    <a href="#" class="royal-logo">D × K</a>
+    <span class="royal-date-badge">20 · 12 · 2026</span>
+  </header>
+
+  <!-- HERO STAGE (ROYAL JHAROKHA ARCH) -->
+  <section class="hero-stage">
+    <div class="jharokha-frame">
+      <div class="ganesh-mantra">॥ વક્રતુંડ મહાકાય સૂર્યકોટિ સમપ્રભ ॥</div>
+      <div class="sub-head">The Royal Sagayi & Ring Ceremony</div>
+
+      <h1 class="hero-couplename">
+        Dipak <span>&</span> Krupa
+      </h1>
+
+      <div class="royal-divider">
+        <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      </div>
+
+      <p class="hero-lead-text">
+        "Two souls guided by fate, united by family, and bound by sacred eternal love."
+      </p>
+
+      <div class="hero-time-tag">
+        SUNDAY · 20 DECEMBER 2026 · AHMEDABAD
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY SECTION -->
+  <section>
+    <div class="container">
+      <div class="story-arch-grid">
+        <div class="arch-image-holder">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=90" alt="Dipak & Krupa Traditional Heritage">
+        </div>
+        <div class="story-card-text">
+          <span class="section-eyebrow">Our Auspicious Union</span>
+          <h3>A Sacred Beginning</h3>
+          <p>
+            With the graceful blessings of our ancestors and beloved parents, we embark upon an everlasting journey of companionship, honor, and joy.
+          </p>
+          <p>
+            What began as an aligned thought between two respected families has blossomed into an unbreakable bond. We take immense pride in having you stand witness as we exchange our engagement rings.
+          </p>
+          <div class="shloka-quote">
+            "જ્યાં પ્રેમ અને વડીલોના આશીર્વાદ હોય, ત્યાં સર્વ મંગલ થાય છે."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUJARATI SAGAYI VIDHI TIMELINE -->
+  <section style="background: rgba(13, 18, 15, 0.5);">
+    <div class="container">
+      <span class="section-eyebrow">Auspicious Schedule</span>
+      <h2 class="section-title">The Sacred Vidhi</h2>
+
+      <div class="timeline-row">
+        <div class="ritual-box">
+          <div class="ritual-order">01 / વિધિ</div>
+          <div class="ritual-time">07:00 PM</div>
+          <h4>ગણેશ સ્થાપના</h4>
+          <p>Commencing the evening with prayers to Lord Ganesha, removing all obstacles for a prosperous lifetime.</p>
+        </div>
+
+        <div class="ritual-box" style="border-color: var(--gold);">
+          <div class="ritual-order">02 / વિધિ</div>
+          <div class="ritual-time">07:45 PM</div>
+          <h4>ગોળ-ધાણા & Sagayi</h4>
+          <p>The sweet Gujarati tradition of distributing Gol-Dhana followed by the ceremonial Ring Exchange.</p>
+        </div>
+
+        <div class="ritual-box">
+          <div class="ritual-order">03 / વિધિ</div>
+          <div class="ritual-time">08:30 PM ONWARDS</div>
+          <h4>મહાપ્રસાદ / Feast</h4>
+          <p>A celebratory dinner banquet with our loved ones, filled with laughter, music, and rich Gujarati delicacies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE COUNTDOWN -->
+  <div class="countdown-wrap">
+    <div class="container">
+      <span class="section-eyebrow">Counting The Moments</span>
+      <div class="counter-flex">
+        <div>
+          <div class="time-num" id="dNum">00</div>
+          <div class="time-lbl">DAYS</div>
+        </div>
+        <div>
+          <div class="time-num" id="hNum">00</div>
+          <div class="time-lbl">HOURS</div>
+        </div>
+        <div>
+          <div class="time-num" id="mNum">00</div>
+          <div class="time-lbl">MINUTES</div>
+        </div>
+        <div>
+          <div class="time-num" id="sNum">00</div>
+          <div class="time-lbl">SECONDS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENUE & LOCATION -->
+  <section>
+    <div class="container">
+      <span class="section-eyebrow">The Destination</span>
+      <h2 class="section-title">Venue & Celebration</h2>
+
+      <div class="venue-grid">
+        <div class="venue-details-panel">
+          <div>
+            <div class="venue-title-sub">The Grand Thakar</div>
+
+            <div class="venue-meta-block">
+              <span>Date & Time</span>
+              <h5>20 December 2026 · 7:00 PM</h5>
+            </div>
+
+            <div class="venue-meta-block">
+              <span>Location</span>
+              <h5>Banquet Hall, Odhav</h5>
+              <p>Ahmedabad, Gujarat 382415</p>
+            </div>
+          </div>
+
+          <div class="venue-actions">
+            <a class="btn-royal" href="https://www.google.com/maps/place/The+Grand+Thakar+(Odhav)/@23.0173123,72.6695291,687m" target="_blank" rel="noopener">
+              View Location Map →
+            </a>
+            <a class="btn-royal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dipak+%26+Krupa+Engagement+Ceremony&dates=20261220T133000Z/20261220T180000Z&details=Sagayi+Ceremony+of+Dipak+%26+Krupa&location=The+Grand+Thakar,+Odhav,+Ahmedabad" target="_blank" rel="noopener">
+              Add to Calendar +
+            </a>
+          </div>
+        </div>
+
+        <div class="map-frame-box">
+          <iframe
+            src="https://www.google.com/maps?q=The%20Grand%20Thakar%2C%20Odhav%2C%20Ahmedabad&output=embed"
+            loading="lazy"
+            title="The Grand Thakar Venue Map"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOMENTS GALLERY (HERITAGE ARCH TRIO) -->
+  <section style="background: rgba(13, 18, 15, 0.4);">
+    <div class="container">
+      <span class="section-eyebrow">Visual Memoir</span>
+      <h2 class="section-title">Cherished Moments</h2>
+
+      <div class="gallery-trio">
+        <div class="gallery-cell">
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=90" alt="Ring Celebration">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://images.unsplash.com/photo-1545232979-fbf67119056d?auto=format&fit=crop&w=1400&q=90" alt="Mandap Lighting">
+        </div>
+        <div class="gallery-cell">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=90" alt="Celebration Decor">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp-heritage">
+    <div class="container">
+      <span class="section-eyebrow">Warm Welcome</span>
+      <h2 class="section-title" style="margin-bottom: 25px;">પધારો સપરિવાર</h2>
+      <p>
+        Your gracious presence and heartfelt blessings are the greatest gifts we look forward to receiving on our auspicious evening.
+      </p>
+
+      <a
+        class="rsvp-whatsapp-btn"
+        href="https://wa.me/919724946789?text=Namaste%20Dipak%20%26%20Krupa%2C%20we%20are%20pleased%20to%20confirm%20our%20presence%20for%20your%20Engagement%20Ceremony%20on%2020th%20December%202026!"
+        target="_blank"
+        rel="noopener"
+      >
+        Confirm RSVP via WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="royal-footer">
+    DIPAK & KRUPA · SHUBH SAGAYI · AHMEDABAD · GUJARAT<br>
+    <span style="opacity: .6; display: inline-block; margin-top: 8px;">WITH REVERENCE & LOVE ALWAYS</span>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <img id="lightboxImg" src="" alt="Popup view">
+  </div>
+
+  <!-- JS LOGIC -->
+  <script>
+    // 1. PETALS SIMULATION CANVAS
+    const canvas = document.getElementById("petalCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const petals = [];
+    const petalColors = ["rgba(212, 175, 55, 0.4)", "rgba(235, 120, 50, 0.35)", "rgba(255, 215, 0, 0.3)"];
+    for (let i = 0; i < 28; i++) {
+      petals.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 5 + 3,
+        d: Math.random() * 2 + 1,
+        color: petalColors[Math.floor(Math.random() * petalColors.length)],
+        tilt: Math.random() * 10,
+        tiltAngleInc: Math.random() * 0.05 + 0.01,
+        tiltAngle: 0
+      });
+    }
+
+    function drawPetals() {
+      ctx.clearRect(0, 0, w, h);
+      petals.forEach(p => {
+        p.tiltAngle += p.tiltAngleInc;
+        p.y += (Math.cos(p.d) + 1.2 + p.r / 3) * 0.45;
+        p.x += Math.sin(p.d) * 0.5;
+        p.tilt = Math.sin(p.tiltAngle) * 12;
+
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.ellipse(p.x, p.y, p.r, p.r * 1.6, p.tilt * Math.PI / 180, 0, 2 * Math.PI);
+        ctx.fill();
+
+        if (p.y > h + 20) {
+          p.y = -20;
+          p.x = Math.random() * w;
+        }
+      });
+      requestAnimationFrame(drawPetals);
+    }
+    drawPetals();
+
+    // 2. UNVEIL SEAL CLICK INTERACTION
+    const sealBtn = document.getElementById("waxSealBtn");
+    const sealCurtain = document.getElementById("sealCurtain");
+    const royalAudio = document.getElementById("royalAudio");
+    const musicBtn = document.getElementById("musicBtn");
+    const musicStatus = document.getElementById("musicStatus");
+
+    sealBtn.addEventListener("click", () => {
+      sealCurtain.classList.add("opened");
+      document.body.classList.remove("locked");
+
+      // Auto start ambient music on user action
+      royalAudio.play().then(() => {
+        musicBtn.classList.add("active");
+        musicStatus.textContent = "MUSIC : PLAYING";
+      }).catch(() => {});
+    });
+
+    // 3. MUSIC TOGGLE
+    musicBtn.addEventListener("click", () => {
+      if (royalAudio.paused) {
+        royalAudio.play();
+        musicBtn.classList.add("active");
+        musicStatus.textContent = "MUSIC : PLAYING";
+      } else {
+        royalAudio.pause();
+        musicBtn.classList.remove("active");
+        musicStatus.textContent = "MUSIC : OFF";
+      }
+    });
+
+    // 4. COUNTDOWN TARGET (20 Dec 2026, 19:00 IST)
+    const targetTime = new Date("2026-12-20T19:00:00+05:30").getTime();
+    const dNum = document.getElementById("dNum");
+    const hNum = document.getElementById("hNum");
+    const mNum = document.getElementById("mNum");
+    const sNum = document.getElementById("sNum");
+
+    function updateTimer() {
+      const diff = targetTime - Date.now();
+      if (diff <= 0) return;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      dNum.textContent = String(d).padStart(2, "0");
+      hNum.textContent = String(h).padStart(2, "0");
+      mNum.textContent = String(m).padStart(2, "0");
+      sNum.textContent = String(s).padStart(2, "0");
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // 5. LIGHTBOX
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    document.querySelectorAll(".gallery-cell img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add("open");
+      });
+    });
+
+    lightboxClose.addEventListener("click", () => lightbox.classList.remove("open"));
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.classList.remove("open");
+    });
+  </script>
+
+</body>
+</html>
