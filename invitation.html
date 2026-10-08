@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="theme-color" content="#090908">
-  <meta name="description" content="Aarav & Anaya — The Engagement Edition">
+  <meta name="description" content="Dipak & Krupa — The Engagement Edition">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Dipak × Krupa — The Engagement Edition">
+  <meta property="og:description" content="Join Dipak & Krupa for their engagement celebration on 20 December 2026.">
+  <meta property="og:type" content="website">
 
-  <title>Aarav × Anaya — The Engagement Edition</title>
+  <title>Dipak × Krupa — The Engagement Edition</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -331,6 +335,7 @@
 
     .hero-image {
       width: 100%;
+      will-change: transform;
       height: 112%;
       object-fit: cover;
       object-position: center;
@@ -1020,6 +1025,15 @@
        RESPONSIVE
     ========================================================= */
 
+    .gallery-item:focus-visible,
+    .menu-toggle:focus-visible,
+    .lightbox-close:focus-visible,
+    .rsvp-button:focus-visible,
+    .map-link:focus-visible {
+      outline: 2px solid var(--champagne);
+      outline-offset: 5px;
+    }
+
     @media (max-width: 900px) {
 
       :root {
@@ -1222,6 +1236,26 @@
         scroll-behavior: auto;
       }
     }
+    .map-container{
+    width:100%;
+    margin-top:24px;
+    overflow:hidden;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+.map-container iframe{
+    display:block;
+    width:100%;
+    height:400px;
+}
+
+@media(max-width:560px){
+    .map-container iframe{
+        height:300px;
+    }
+}
   </style>
 </head>
 
@@ -1236,7 +1270,7 @@
     <div class="loader-inner">
 
       <div class="loader-mark">
-        A×A
+        D×K
       </div>
 
       <div class="loader-text">
@@ -1256,7 +1290,7 @@
   <header class="header">
 
     <a href="#home" class="logo">
-      A×A
+      D×K
     </a>
 
     <div class="header-right">
@@ -1269,6 +1303,8 @@
         class="menu-toggle"
         id="menuToggle"
         aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="menu"
       >
 
         <span class="hamburger">
@@ -1302,12 +1338,12 @@
         Portraits
       </a>
 
-      <a href="#rsvp" class="menu-link">
+      <!-- <a href="#rsvp" class="menu-link">
         RSVP
-      </a>
+      </a> -->
 
       <div class="menu-meta">
-        AARAV × ANAYA · AHMEDABAD
+        Dipak × Krupa · AHMEDABAD
       </div>
 
     </nav>
@@ -1326,8 +1362,12 @@
 
         <img
           class="hero-image"
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2400&q=90"
-          alt="Aarav and Anaya"
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=82"
+          alt="Dipak and Krupa"
+          width="1600"
+          height="1067"
+          fetchpriority="high"
+          decoding="async"
         >
 
       </div>
@@ -1341,11 +1381,11 @@
         <h1 class="hero-title">
 
           <span>
-            Aarav
+            Dipak
           </span>
 
           <span class="last">
-            Anaya
+            Krupa
           </span>
 
         </h1>
@@ -1438,7 +1478,7 @@
 
           <img
             src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1800&q=90"
-            alt="Aarav and Anaya portrait"
+            loading="lazy" decoding="async" alt="Dipak and Krupa portrait"
           >
 
           <div class="editorial-text">
@@ -1484,8 +1524,8 @@
             <p class="story-copy reveal">
 
               Somewhere between ordinary days
-              and unexpected moments, Aarav and
-              Anaya found something extraordinary.
+              and unexpected moments, Dipak and
+              Krupa found something extraordinary.
 
               <br><br>
 
@@ -1509,7 +1549,7 @@
 
           <img
             src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1600&q=90"
-            alt="Couple"
+            loading="lazy" decoding="async" alt="Couple"
           >
 
         </div>
@@ -1528,7 +1568,7 @@
 
         <img
           src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2400&q=90"
-          alt="Celebration"
+          loading="lazy" decoding="async" alt="Celebration"
         >
 
       </div>
@@ -1635,13 +1675,23 @@
 
         <a
           class="map-link"
-          href="https://www.google.com/maps/search/?api=1&query=The+Grand+Palace+Ahmedabad"
+          href="https://www.google.com/maps/place/The+Grand+Thakar+(Odhav)/@23.0173123,72.6695291,687m/data=!3m1!1e3!4m6!3m5!1s0x395e87ae384ae06b:0x5d1d27c42100f5de!8m2!3d23.0170432!4d72.6702079!16s%2Fg%2F11f5h3d2f6?entry=ttu&g_ep=EgoyMDI2MTAwNC4wIKXMDSoASAFQAw%3D%3D"
           target="_blank"
           rel="noopener"
         >
           View Location →
         </a>
-
+<div class="map-container">
+    <iframe
+        src="https://www.google.com/maps?q=The%20Grand%20Thakar%2C%20Odhav%2C%20Ahmedabad&output=embed"
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
       </div>
 
     </section>
@@ -1733,7 +1783,7 @@
 
             <img
               src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=90"
-              alt="Portrait one"
+              loading="lazy" decoding="async" alt="Portrait one"
             >
 
           </div>
@@ -1742,7 +1792,7 @@
 
             <img
               src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=90"
-              alt="Portrait two"
+              loading="lazy" decoding="async" alt="Portrait two"
             >
 
           </div>
@@ -1751,7 +1801,7 @@
 
             <img
               src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1500&q=90"
-              alt="Portrait three"
+              loading="lazy" decoding="async" alt="Portrait three"
             >
 
           </div>
@@ -1760,7 +1810,7 @@
 
             <img
               src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=90"
-              alt="Portrait four"
+              loading="lazy" decoding="async" alt="Portrait four"
             >
 
           </div>
@@ -1775,7 +1825,7 @@
          RSVP
     ====================================================== -->
 
-    <section class="rsvp" id="rsvp">
+    <!-- <section class="rsvp" id="rsvp">
 
       <div class="container">
 
@@ -1804,7 +1854,7 @@
 
         <a
           class="rsvp-button"
-          href="https://wa.me/919876543210?text=Hello%20Aarav%20%26%20Anaya%2C%20I%20would%20love%20to%20join%20your%20engagement%20celebration."
+          href="https://wa.me/919724946789?text=Hello%20Dipak%20%26%20Krupa%2C%20I%20would%20love%20to%20join%20your%20engagement%20celebration."
           target="_blank"
           rel="noopener"
         >
@@ -1813,7 +1863,7 @@
 
       </div>
 
-    </section>
+    </section> -->
 
   </main>
 
@@ -1826,12 +1876,12 @@
     <div class="footer-main">
 
       <div class="footer-logo">
-        A×A
+        D×K
       </div>
 
       <div class="footer-info">
 
-        AARAV & ANAYA<br>
+        Dipak & Krupa<br>
         THE ENGAGEMENT EDITION<br>
         AHMEDABAD · INDIA
 
@@ -1857,7 +1907,7 @@
        LIGHTBOX
   ======================================================== -->
 
-  <div class="lightbox" id="lightbox">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Photo preview">
 
     <button
       class="lightbox-close"
@@ -1870,7 +1920,7 @@
     <img
       id="lightboxImage"
       src=""
-      alt="Gallery preview"
+      loading="lazy" decoding="async" alt="Gallery preview"
     >
 
   </div>
@@ -1996,9 +2046,7 @@
     ======================================================= */
 
     const target =
-      new Date(
-        "December 20, 2026 19:00:00"
-      ).getTime();
+      new Date("2026-12-20T19:00:00+05:30").getTime();
 
 
     const days =
@@ -2211,27 +2259,19 @@
       );
 
 
-    window.addEventListener(
-      "scroll",
-      () => {
+    let parallaxTicking = false;
 
-        const y =
-          window.scrollY;
-
-        if (
-          y < window.innerHeight
-        ) {
-
-          heroImage.style.transform =
-            `translate3d(0, ${y * .08}px, 0) scale(1.02)`;
-
+    window.addEventListener("scroll", () => {
+      if (parallaxTicking) return;
+      parallaxTicking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < window.innerHeight && !document.body.classList.contains("locked")) {
+          heroImage.style.transform = `translate3d(0, ${y * .08}px, 0) scale(1.02)`;
         }
-
-      },
-      {
-        passive: true
-      }
-    );
+        parallaxTicking = false;
+      });
+    }, { passive: true });
 
   </script>
 
