@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#090908">
+  <meta name="description" content="Dipak & Krupa — The Engagement Edition">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Dipak × Krupa — The Engagement Edition">
+  <meta property="og:description" content="Join Dipak & Krupa for their engagement celebration on 20 December 2026.">
+  <meta property="og:type" content="website">
+
+  <title>Dipak × Krupa — The Engagement Edition</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Mono:wght@300;400&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    /* =========================================================
+       DESIGN SYSTEM
+    ========================================================= */
+
+    :root {
+      --black: #090908;
+      --black-2: #11110f;
+      --ivory: #f1ece2;
+      --ivory-soft: #ded8cd;
+      --champagne: #bda77a;
+      --gold: #d2b477;
+      --taupe: #777169;
+      --line: rgba(241, 236, 226, .16);
+
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Inter", Arial, sans-serif;
+      --mono: "DM Mono", monospace;
+
+      --page: min(1300px, calc(100% - 80px));
+    }
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      margin: 0;
+      background: var(--black);
+      color: var(--ivory);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      color: var(--black);
+      background: var(--champagne);
+    }
+
+    /* =========================================================
+       GRAIN
+    ========================================================= */
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: .055;
+      mix-blend-mode: screen;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* =========================================================
+       PRELOADER
+    ========================================================= */
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+
+      display: grid;
+      place-items: center;
+
+      background: var(--black);
+      color: var(--ivory);
+
+      transition:
+        opacity .9s ease,
+        visibility .9s ease;
+    }
+
+    .loader.done {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-inner {
+      text-align: center;
+    }
+
+    .loader-mark {
+      font-family: var(--serif);
+      font-size: clamp(80px, 13vw, 170px);
+      font-weight: 300;
+      line-height: .7;
+      letter-spacing: -.09em;
+    }
+
+    .loader-text {
+      margin-top: 30px;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--taupe);
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 200;
+
+      width: 100%;
+      padding: 25px 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      mix-blend-mode: difference;
+      color: white;
+    }
+
+    .logo {
+      font-family: var(--serif);
+      font-size: 27px;
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .header-date {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .25em;
+    }
+
+    .menu-toggle {
+      width: 45px;
+      height: 45px;
+
+      border: 1px solid currentColor;
+      border-radius: 50%;
+
+      display: grid;
+      place-items: center;
+
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .hamburger {
+      width: 15px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .hamburger span {
+      height: 1px;
+      background: currentColor;
+      transition: .35s ease;
+    }
+
+    /* =========================================================
+       FULLSCREEN MENU
+    ========================================================= */
+
+    .menu {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+
+      background: var(--black);
+      color: var(--ivory);
+
+      display: grid;
+      place-items: center;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity .5s ease,
+        visibility .5s ease;
+    }
+
+    .menu.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .menu-content {
+      text-align: center;
+    }
+
+    .menu-link {
+      display: block;
+
+      font-family: var(--serif);
+      font-size: clamp(55px, 9vw, 125px);
+      font-weight: 300;
+      line-height: .82;
+      letter-spacing: -.06em;
+
+      opacity: 0;
+      transform: translateY(40px);
+
+      transition:
+        opacity .7s ease,
+        transform .8s cubic-bezier(.16,1,.3,1);
+    }
+
+    .menu.open .menu-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .menu.open .menu-link:nth-child(1) {
+      transition-delay: .05s;
+    }
+
+    .menu.open .menu-link:nth-child(2) {
+      transition-delay: .12s;
+    }
+
+    .menu.open .menu-link:nth-child(3) {
+      transition-delay: .19s;
+    }
+
+    .menu.open .menu-link:nth-child(4) {
+      transition-delay: .26s;
+    }
+
+    .menu-meta {
+      margin-top: 50px;
+
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: var(--taupe);
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 700px;
+
+      overflow: hidden;
+
+      display: flex;
+      align-items: flex-end;
+
+      background: var(--black);
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(9,9,8,.08),
+          rgba(9,9,8,.08) 45%,
+          rgba(9,9,8,.82)
+        );
+    }
+
+    .hero-image {
+      width: 100%;
+      will-change: transform;
+      height: 112%;
+      object-fit: cover;
+      object-position: center;
+
+      transform: scale(1.08);
+
+      animation:
+        heroIn 2.2s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    @keyframes heroIn {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+
+      width: var(--page);
+      margin: 0 auto;
+
+      padding-bottom: 55px;
+    }
+
+    .micro {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 25px 0 0;
+
+      font-family: var(--serif);
+      font-size: clamp(85px, 17vw, 245px);
+      font-weight: 300;
+      line-height: .67;
+      letter-spacing: -.075em;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-title .last {
+      margin-left: 15vw;
+    }
+
+    .hero-bottom {
+      margin-top: 60px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .scroll {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scroll-line {
+      width: 55px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    /* =========================================================
+       GENERAL
+    ========================================================= */
+
+    .container {
+      width: var(--page);
+      margin: auto;
+    }
+
+    .number {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .3em;
+      color: var(--taupe);
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+
+      transition:
+        opacity 1s cubic-bezier(.16,1,.3,1),
+        transform 1s cubic-bezier(.16,1,.3,1);
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================
+       INTRO
+    ========================================================= */
+
+    .intro {
+      padding: 190px 0;
+      background: var(--ivory);
+      color: var(--black);
+    }
+
+    .intro-layout {
+      display: grid;
+      grid-template-columns: 1fr 2.2fr;
+      gap: 80px;
+    }
+
+    .intro-title {
+      margin: 0;
+
+      font-family: var(--serif);
+      font-size: clamp(60px, 9vw, 135px);
+      font-weight: 300;
+      line-height: .75;
+      letter-spacing: -.065em;
+    }
+
+    .intro-copy {
+      max-width: 530px;
+      margin: 80px 0 0 auto;
+
+      color: #6d675f;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .intro-copy strong {
+      color: var(--black);
+      font-weight: 400;
+    }
+
+    /* =========================================================
+       EDITORIAL IMAGE
+    ========================================================= */
+
+    .editorial {
+      padding: 170px 0;
+
+      background: var(--ivory);
+      color: var(--black);
+    }
+
+    .editorial-frame {
+      position: relative;
+      width: 78%;
+      margin-left: auto;
+
+      overflow: hidden;
+    }
+
+    .editorial-frame img {
+      aspect-ratio: 1.12;
+      object-fit: cover;
+
+      transform: scale(1.12);
+      transition: transform 1.6s cubic-bezier(.16,1,.3,1);
+    }
+
+    .editorial-frame.visible img {
+      transform: scale(1);
+    }
+
+    .editorial-text {
+      position: absolute;
+      left: -80px;
+      bottom: 40px;
+
+      width: 300px;
+
+      font-family: var(--serif);
+      font-size: 55px;
+      line-height: .8;
+      letter-spacing: -.05em;
+      color: var(--ivory);
+    }
+
+    .editorial-text small {
+      display: block;
+
+      margin-bottom: 15px;
+
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .25em;
+    }
+
+    /* =========================================================
+       STORY
+    ========================================================= */
+
+    .story {
+      padding: 190px 0;
+
+      background: var(--black);
+      color: var(--ivory);
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+    }
+
+    .story-title {
+      margin: 0;
+
+      font-family: var(--serif);
+      font-size: clamp(70px, 10vw, 155px);
+      font-weight: 300;
+      line-height: .7;
+      letter-spacing: -.07em;
+    }
+
+    .story-copy {
+      max-width: 500px;
+      margin-top: 70px;
+
+      color: #9c958b;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .story-photo {
+      width: 65%;
+      margin: 140px 0 0 8%;
+      overflow: hidden;
+    }
+
+    .story-photo img {
+      aspect-ratio: .78;
+      object-fit: cover;
+
+      transition: transform 1.4s cubic-bezier(.16,1,.3,1);
+    }
+
+    .story-photo:hover img {
+      transform: scale(1.035);
+    }
+
+    /* =========================================================
+       CHAPTER
+    ========================================================= */
+
+    .chapter {
+      min-height: 100svh;
+
+      position: relative;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+
+      background: var(--black);
+    }
+
+    .chapter-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .chapter-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(9,9,8,.88),
+          rgba(9,9,8,.2)
+        );
+    }
+
+    .chapter-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .chapter-content {
+      position: relative;
+      z-index: 2;
+      width: var(--page);
+      margin: auto;
+    }
+
+    .chapter-title {
+      margin: 25px 0 0;
+
+      font-family: var(--serif);
+      font-size: clamp(85px, 15vw, 220px);
+      font-weight: 300;
+      line-height: .67;
+      letter-spacing: -.075em;
+    }
+
+    .chapter-subtitle {
+      margin-top: 55px;
+
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .28em;
+      color: #b5aea4;
+    }
+
+    /* =========================================================
+       EVENT
+    ========================================================= */
+
+    .event {
+      padding: 190px 0;
+
+      background: var(--ivory);
+      color: var(--black);
+    }
+
+    .event-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 100px;
+    }
+
+    .event-title {
+      margin: 0;
+
+      font-family: var(--serif);
+      font-size: clamp(70px, 11vw, 160px);
+      font-weight: 300;
+      line-height: .7;
+      letter-spacing: -.07em;
+    }
+
+    .event-date {
+      font-family: var(--serif);
+      font-size: clamp(120px, 20vw, 280px);
+      font-weight: 300;
+      line-height: .65;
+      letter-spacing: -.08em;
+    }
+
+    .event-month {
+      margin-top: 40px;
+
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .3em;
+    }
+
+    .event-grid {
+      margin-top: 100px;
+
+      border-top: 1px solid rgba(9,9,8,.18);
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .event-item {
+      padding: 30px 20px 30px 0;
+      border-bottom: 1px solid rgba(9,9,8,.18);
+    }
+
+    .event-item + .event-item {
+      padding-left: 30px;
+      border-left: 1px solid rgba(9,9,8,.18);
+    }
+
+    .event-label {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .25em;
+      color: var(--taupe);
+    }
+
+    .event-value {
+      margin-top: 15px;
+
+      font-family: var(--serif);
+      font-size: 30px;
+    }
+
+    .map-link {
+      display: inline-block;
+      margin-top: 50px;
+
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 7px;
+    }
+
+    /* =========================================================
+       COUNTDOWN
+    ========================================================= */
+
+    .countdown-section {
+      padding: 180px 0;
+      text-align: center;
+
+      background: var(--black);
+      color: var(--ivory);
+    }
+
+    .count-title {
+      margin: 25px 0 0;
+
+      font-family: var(--serif);
+      font-size: clamp(70px, 11vw, 160px);
+      font-weight: 300;
+      line-height: .72;
+      letter-spacing: -.07em;
+    }
+
+    .counter {
+      margin-top: 90px;
+
+      display: flex;
+      justify-content: center;
+      gap: clamp(25px, 7vw, 110px);
+    }
+
+    .counter-number {
+      font-family: var(--serif);
+      font-size: clamp(55px, 8vw, 105px);
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .counter-label {
+      margin-top: 10px;
+
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .25em;
+      color: var(--taupe);
+    }
+
+    /* =========================================================
+       GALLERY
+    ========================================================= */
+
+    .gallery {
+      padding: 190px 0;
+
+      background: var(--ivory);
+      color: var(--black);
+    }
+
+    .gallery-title {
+      margin: 25px 0 100px;
+
+      font-family: var(--serif);
+      font-size: clamp(90px, 15vw, 220px);
+      font-weight: 300;
+      line-height: .65;
+      letter-spacing: -.08em;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 25px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      filter: saturate(.75);
+
+      transition:
+        transform 1s cubic-bezier(.16,1,.3,1),
+        filter .6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+      filter: saturate(1);
+    }
+
+    .gallery-item:nth-child(1) {
+      grid-column: 1 / 6;
+      aspect-ratio: .72;
+      margin-top: 80px;
+    }
+
+    .gallery-item:nth-child(2) {
+      grid-column: 6 / 13;
+      aspect-ratio: 1.1;
+    }
+
+    .gallery-item:nth-child(3) {
+      grid-column: 3 / 9;
+      aspect-ratio: 1;
+      margin-top: 80px;
+    }
+
+    .gallery-item:nth-child(4) {
+      grid-column: 9 / 13;
+      aspect-ratio: .7;
+      margin-top: 200px;
+    }
+
+    /* =========================================================
+       RSVP
+    ========================================================= */
+
+    .rsvp {
+      padding: 200px 0;
+
+      background: var(--black);
+      color: var(--ivory);
+
+      text-align: center;
+    }
+
+    .rsvp-title {
+      margin: 30px 0 0;
+
+      font-family: var(--serif);
+      font-size: clamp(85px, 15vw, 220px);
+      font-weight: 300;
+      line-height: .66;
+      letter-spacing: -.08em;
+    }
+
+    .rsvp-copy {
+      max-width: 420px;
+      margin: 70px auto 45px;
+
+      color: #8f887f;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .rsvp-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 230px;
+      padding: 19px 35px;
+
+      border: 1px solid #6e675f;
+
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .3em;
+
+      transition:
+        background .35s ease,
+        color .35s ease;
+    }
+
+    .rsvp-button:hover {
+      background: var(--ivory);
+      color: var(--black);
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    .footer {
+      padding: 70px 40px 35px;
+
+      background: var(--black);
+      color: var(--ivory);
+
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    .footer-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: clamp(90px, 16vw, 220px);
+      line-height: .62;
+      letter-spacing: -.09em;
+    }
+
+    .footer-info {
+      font-family: var(--mono);
+      font-size: 8px;
+      line-height: 2;
+      letter-spacing: .2em;
+      color: var(--taupe);
+      text-align: right;
+    }
+
+    .footer-bottom {
+      margin-top: 120px;
+
+      display: flex;
+      justify-content: space-between;
+
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .2em;
+      color: #625d56;
+    }
+
+    /* =========================================================
+       LIGHTBOX
+    ========================================================= */
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+
+      background: rgba(0,0,0,.96);
+
+      display: grid;
+      place-items: center;
+
+      padding: 30px;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition: .4s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox img {
+      width: auto;
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+
+      width: 45px;
+      height: 45px;
+
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 50%;
+
+      background: transparent;
+      color: white;
+
+      cursor: pointer;
+
+      font-size: 20px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    .gallery-item:focus-visible,
+    .menu-toggle:focus-visible,
+    .lightbox-close:focus-visible,
+    .rsvp-button:focus-visible,
+    .map-link:focus-visible {
+      outline: 2px solid var(--champagne);
+      outline-offset: 5px;
+    }
+
+    @media (max-width: 900px) {
+
+      :root {
+        --page: calc(100% - 40px);
+      }
+
+      .header {
+        padding: 20px;
+      }
+
+      .header-date {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: clamp(75px, 20vw, 160px);
+      }
+
+      .hero-title .last {
+        margin-left: 7vw;
+      }
+
+      .intro {
+        padding: 120px 0;
+      }
+
+      .intro-layout,
+      .story-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .intro-copy {
+        margin: 0;
+      }
+
+      .editorial {
+        padding: 120px 0;
+      }
+
+      .editorial-frame {
+        width: 100%;
+      }
+
+      .editorial-text {
+        left: 20px;
+        bottom: 25px;
+        font-size: 42px;
+      }
+
+      .story {
+        padding: 120px 0;
+      }
+
+      .story-photo {
+        width: 85%;
+        margin: 80px 0 0;
+      }
+
+      .chapter {
+        min-height: 750px;
+      }
+
+      .event {
+        padding: 120px 0;
+      }
+
+      .event-head {
+        display: block;
+      }
+
+      .event-title {
+        margin-bottom: 70px;
+      }
+
+      .event-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .event-item + .event-item {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .counter {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px 20px;
+      }
+
+      .gallery {
+        padding: 120px 0;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(2),
+      .gallery-item:nth-child(3),
+      .gallery-item:nth-child(4) {
+        grid-column: auto;
+        margin-top: 0;
+      }
+
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(4) {
+        aspect-ratio: .75;
+      }
+
+      .gallery-item:nth-child(2),
+      .gallery-item:nth-child(3) {
+        aspect-ratio: .85;
+      }
+
+      .rsvp {
+        padding: 130px 0;
+      }
+
+      .footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .footer-main {
+        display: block;
+      }
+
+      .footer-info {
+        margin-top: 60px;
+        text-align: left;
+      }
+
+      .footer-bottom {
+        margin-top: 80px;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 560px) {
+
+      .hero {
+        min-height: 650px;
+      }
+
+      .hero-content {
+        padding-bottom: 35px;
+      }
+
+      .hero-bottom {
+        margin-top: 40px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .intro-title {
+        font-size: 68px;
+      }
+
+      .story-title {
+        font-size: 75px;
+      }
+
+      .chapter-title {
+        font-size: 90px;
+      }
+
+      .event-date {
+        font-size: 130px;
+      }
+
+      .event-month {
+        font-size: 8px;
+      }
+
+      .gallery-title {
+        font-size: 100px;
+      }
+
+      .rsvp-title {
+        font-size: 100px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+    .map-container{
+    width:100%;
+    margin-top:24px;
+    overflow:hidden;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+.map-container iframe{
+    display:block;
+    width:100%;
+    height:400px;
+}
+
+@media(max-width:560px){
+    .map-container iframe{
+        height:300px;
+    }
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================================================
+       PRELOADER
+  ======================================================== -->
+
+  <div class="loader" id="loader">
+
+    <div class="loader-inner">
+
+      <div class="loader-mark">
+        D×K
+      </div>
+
+      <div class="loader-text">
+        The Engagement Edition
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="grain"></div>
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <header class="header">
+
+    <a href="#home" class="logo">
+      D×K
+    </a>
+
+    <div class="header-right">
+
+      <span class="header-date">
+        20.12.2026
+      </span>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="menu"
+      >
+
+        <span class="hamburger">
+          <span></span>
+          <span></span>
+        </span>
+
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- =======================================================
+       MENU
+  ======================================================== -->
+
+  <div class="menu" id="menu">
+
+    <nav class="menu-content">
+
+      <a href="#story" class="menu-link">
+        Story
+      </a>
+
+      <a href="#celebration" class="menu-link">
+        Celebration
+      </a>
+
+      <a href="#gallery" class="menu-link">
+        Portraits
+      </a>
+
+      <!-- <a href="#rsvp" class="menu-link">
+        RSVP
+      </a> -->
+
+      <div class="menu-meta">
+        Dipak × Krupa · AHMEDABAD
+      </div>
+
+    </nav>
+
+  </div>
+
+  <main>
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero" id="home">
+
+      <div class="hero-media">
+
+        <img
+          class="hero-image"
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=82"
+          alt="Dipak and Krupa"
+          width="1600"
+          height="1067"
+          fetchpriority="high"
+          decoding="async"
+        >
+
+      </div>
+
+      <div class="hero-content">
+
+        <div class="micro">
+          The Engagement Edition
+        </div>
+
+        <h1 class="hero-title">
+
+          <span>
+            Dipak
+          </span>
+
+          <span class="last">
+            Krupa
+          </span>
+
+        </h1>
+
+        <div class="hero-bottom">
+
+          <span>
+            Together with their families
+          </span>
+
+          <span class="scroll">
+            Scroll
+            <i class="scroll-line"></i>
+          </span>
+
+          <span>
+            20 — 12 — 2026
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         INTRO
+    ====================================================== -->
+
+    <section class="intro">
+
+      <div class="container">
+
+        <div class="intro-layout">
+
+          <div class="number">
+            01 / Introduction
+          </div>
+
+          <div>
+
+            <h2 class="intro-title reveal">
+
+              Two people.<br>
+              One story.<br>
+              Forever.
+
+            </h2>
+
+            <p class="intro-copy reveal">
+
+              There are moments that arrive quietly.
+
+              <br><br>
+
+              A conversation.
+              A shared laugh.
+              A look that lasts a little longer.
+
+              <br><br>
+
+              And then, somehow,
+              everything changes.
+
+              <br><br>
+
+              <strong>
+                This is where our next chapter begins.
+              </strong>
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         EDITORIAL IMAGE
+    ====================================================== -->
+
+    <section class="editorial">
+
+      <div class="container">
+
+        <div class="editorial-frame reveal">
+
+          <img
+            src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1800&q=90"
+            loading="lazy" decoding="async" alt="Dipak and Krupa portrait"
+          >
+
+          <div class="editorial-text">
+
+            <small>
+              THE BEGINNING
+            </small>
+
+            Where forever
+            starts.
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         STORY
+    ====================================================== -->
+
+    <section class="story" id="story">
+
+      <div class="container">
+
+        <div class="story-layout">
+
+          <div class="number">
+            02 / Our Story
+          </div>
+
+          <div>
+
+            <h2 class="story-title reveal">
+
+              A chapter<br>
+              worth keeping.
+
+            </h2>
+
+            <p class="story-copy reveal">
+
+              Somewhere between ordinary days
+              and unexpected moments, Dipak and
+              Krupa found something extraordinary.
+
+              <br><br>
+
+              Their story isn't about a perfect
+              beginning.
+
+              <br><br>
+
+              It's about two people finding each other,
+              choosing each other, and deciding that
+              the best chapters are the ones still
+              waiting to be written.
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="story-photo reveal">
+
+          <img
+            src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1600&q=90"
+            loading="lazy" decoding="async" alt="Couple"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         CINEMATIC CHAPTER
+    ====================================================== -->
+
+    <section class="chapter">
+
+      <div class="chapter-bg">
+
+        <img
+          src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2400&q=90"
+          loading="lazy" decoding="async" alt="Celebration"
+        >
+
+      </div>
+
+      <div class="container">
+
+        <div class="chapter-content">
+
+          <div class="number">
+            03 / A New Chapter
+          </div>
+
+          <h2 class="chapter-title">
+            This is<br>
+            the moment.
+          </h2>
+
+          <div class="chapter-subtitle">
+            ONE EVENING · TWO HEARTS · A LIFETIME
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         EVENT
+    ====================================================== -->
+
+    <section class="event" id="celebration">
+
+      <div class="container">
+
+        <div class="event-head">
+
+          <div>
+
+            <div class="number">
+              04 / The Celebration
+            </div>
+
+            <h2 class="event-title">
+              Save<br>
+              the date.
+            </h2>
+
+          </div>
+
+          <div>
+
+            <div class="event-date">
+              20
+            </div>
+
+            <div class="event-month">
+              DECEMBER · 2026
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="event-grid">
+
+          <div class="event-item">
+
+            <div class="event-label">
+              TIME
+            </div>
+
+            <div class="event-value">
+              07:00 PM
+            </div>
+
+          </div>
+
+          <div class="event-item">
+
+            <div class="event-label">
+              VENUE
+            </div>
+
+            <div class="event-value">
+              The Grand Palace
+            </div>
+
+          </div>
+
+          <div class="event-item">
+
+            <div class="event-label">
+              LOCATION
+            </div>
+
+            <div class="event-value">
+              Ahmedabad, India
+            </div>
+
+          </div>
+
+        </div>
+
+        <a
+          class="map-link"
+          href="https://www.google.com/maps/place/The+Grand+Thakar+(Odhav)/@23.0173123,72.6695291,687m/data=!3m1!1e3!4m6!3m5!1s0x395e87ae384ae06b:0x5d1d27c42100f5de!8m2!3d23.0170432!4d72.6702079!16s%2Fg%2F11f5h3d2f6?entry=ttu&g_ep=EgoyMDI2MTAwNC4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          rel="noopener"
+        >
+          View Location →
+        </a>
+<div class="map-container">
+    <iframe
+        src="https://www.google.com/maps?q=The%20Grand%20Thakar%2C%20Odhav%2C%20Ahmedabad&output=embed"
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         COUNTDOWN
+    ====================================================== -->
+
+    <section class="countdown-section">
+
+      <div class="container">
+
+        <div class="number">
+          05 / The Countdown
+        </div>
+
+        <h2 class="count-title reveal">
+          Until the<br>
+          celebration.
+        </h2>
+
+        <div class="counter">
+
+          <div>
+            <div class="counter-number" id="days">
+              00
+            </div>
+
+            <div class="counter-label">
+              DAYS
+            </div>
+          </div>
+
+          <div>
+            <div class="counter-number" id="hours">
+              00
+            </div>
+
+            <div class="counter-label">
+              HOURS
+            </div>
+          </div>
+
+          <div>
+            <div class="counter-number" id="minutes">
+              00
+            </div>
+
+            <div class="counter-label">
+              MINUTES
+            </div>
+          </div>
+
+          <div>
+            <div class="counter-number" id="seconds">
+              00
+            </div>
+
+            <div class="counter-label">
+              SECONDS
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         GALLERY
+    ====================================================== -->
+
+    <section class="gallery" id="gallery">
+
+      <div class="container">
+
+        <div class="number">
+          06 / Portraits
+        </div>
+
+        <h2 class="gallery-title reveal">
+          Moments.
+        </h2>
+
+        <div class="gallery-grid">
+
+          <div class="gallery-item reveal">
+
+            <img
+              src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=90"
+              loading="lazy" decoding="async" alt="Portrait one"
+            >
+
+          </div>
+
+          <div class="gallery-item reveal">
+
+            <img
+              src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=90"
+              loading="lazy" decoding="async" alt="Portrait two"
+            >
+
+          </div>
+
+          <div class="gallery-item reveal">
+
+            <img
+              src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1500&q=90"
+              loading="lazy" decoding="async" alt="Portrait three"
+            >
+
+          </div>
+
+          <div class="gallery-item reveal">
+
+            <img
+              src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=90"
+              loading="lazy" decoding="async" alt="Portrait four"
+            >
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         RSVP
+    ====================================================== -->
+
+    <!-- <section class="rsvp" id="rsvp">
+
+      <div class="container">
+
+        <div class="number">
+          07 / RSVP
+        </div>
+
+        <h2 class="rsvp-title reveal">
+
+          Be there<br>
+          with us.
+
+        </h2>
+
+        <p class="rsvp-copy reveal">
+
+          Your presence is the most beautiful
+          gift we could ask for.
+
+          <br><br>
+
+          We would love to celebrate this
+          beginning with you.
+
+        </p>
+
+        <a
+          class="rsvp-button"
+          href="https://wa.me/919724946789?text=Hello%20Dipak%20%26%20Krupa%2C%20I%20would%20love%20to%20join%20your%20engagement%20celebration."
+          target="_blank"
+          rel="noopener"
+        >
+          RSVP VIA WHATSAPP
+        </a>
+
+      </div>
+
+    </section> -->
+
+  </main>
+
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
+
+  <footer class="footer">
+
+    <div class="footer-main">
+
+      <div class="footer-logo">
+        D×K
+      </div>
+
+      <div class="footer-info">
+
+        Dipak & Krupa<br>
+        THE ENGAGEMENT EDITION<br>
+        AHMEDABAD · INDIA
+
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+      <span>
+        20 — 12 — 2026
+      </span>
+
+      <span>
+        WITH LOVE, ALWAYS
+      </span>
+
+    </div>
+
+  </footer>
+
+  <!-- =======================================================
+       LIGHTBOX
+  ======================================================== -->
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Photo preview">
+
+    <button
+      class="lightbox-close"
+      id="lightboxClose"
+      aria-label="Close"
+    >
+      ×
+    </button>
+
+    <img
+      id="lightboxImage"
+      src=""
+      loading="lazy" decoding="async" alt="Gallery preview"
+    >
+
+  </div>
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
+  <script>
+
+    /* =======================================================
+       PRELOADER
+    ======================================================= */
+
+    window.addEventListener("load", () => {
+
+      setTimeout(() => {
+
+        document
+          .getElementById("loader")
+          .classList.add("done");
+
+      }, 1000);
+
+    });
+
+
+    /* =======================================================
+       MENU
+    ======================================================= */
+
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+    const menu =
+      document.getElementById("menu");
+
+    const menuLinks =
+      document.querySelectorAll(".menu-link");
+
+
+    function toggleMenu() {
+
+      const open =
+        menu.classList.toggle("open");
+
+      document.body.classList.toggle(
+        "locked",
+        open
+      );
+
+    }
+
+
+    menuToggle.addEventListener(
+      "click",
+      toggleMenu
+    );
+
+
+    menuLinks.forEach(link => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          menu.classList.remove("open");
+
+          document.body.classList.remove(
+            "locked"
+          );
+
+        }
+      );
+
+    });
+
+
+    /* =======================================================
+       REVEAL ON SCROLL
+    ======================================================= */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+
+    const observer =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add(
+                "show"
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: .12
+        }
+      );
+
+
+    revealElements.forEach(element => {
+
+      observer.observe(element);
+
+    });
+
+
+    /* =======================================================
+       COUNTDOWN
+    ======================================================= */
+
+    const target =
+      new Date("2026-12-20T19:00:00+05:30").getTime();
+
+
+    const days =
+      document.getElementById("days");
+
+    const hours =
+      document.getElementById("hours");
+
+    const minutes =
+      document.getElementById("minutes");
+
+    const seconds =
+      document.getElementById("seconds");
+
+
+    function pad(number) {
+
+      return String(number)
+        .padStart(2, "0");
+
+    }
+
+
+    function updateCountdown() {
+
+      const difference =
+        target - Date.now();
+
+
+      if (difference <= 0) {
+
+        days.textContent = "00";
+        hours.textContent = "00";
+        minutes.textContent = "00";
+        seconds.textContent = "00";
+
+        return;
+
+      }
+
+
+      const d =
+        Math.floor(
+          difference /
+          (1000 * 60 * 60 * 24)
+        );
+
+
+      const h =
+        Math.floor(
+          (difference %
+            (1000 * 60 * 60 * 24)) /
+          (1000 * 60 * 60)
+        );
+
+
+      const m =
+        Math.floor(
+          (difference %
+            (1000 * 60 * 60)) /
+          (1000 * 60)
+        );
+
+
+      const s =
+        Math.floor(
+          (difference %
+            (1000 * 60)) /
+          1000
+        );
+
+
+      days.textContent =
+        pad(d);
+
+      hours.textContent =
+        pad(h);
+
+      minutes.textContent =
+        pad(m);
+
+      seconds.textContent =
+        pad(s);
+
+    }
+
+
+    updateCountdown();
+
+    setInterval(
+      updateCountdown,
+      1000
+    );
+
+
+    /* =======================================================
+       LIGHTBOX
+    ======================================================= */
+
+    const lightbox =
+      document.getElementById("lightbox");
+
+    const lightboxImage =
+      document.getElementById(
+        "lightboxImage"
+      );
+
+    const lightboxClose =
+      document.getElementById(
+        "lightboxClose"
+      );
+
+
+    document
+      .querySelectorAll(".gallery-item img")
+      .forEach(image => {
+
+        image.parentElement.addEventListener(
+          "click",
+          () => {
+
+            lightboxImage.src =
+              image.src;
+
+            lightboxImage.alt =
+              image.alt;
+
+            lightbox.classList.add(
+              "open"
+            );
+
+            document.body.classList.add(
+              "locked"
+            );
+
+          }
+        );
+
+      });
+
+
+    function closeLightbox() {
+
+      lightbox.classList.remove(
+        "open"
+      );
+
+      document.body.classList.remove(
+        "locked"
+      );
+
+    }
+
+
+    lightboxClose.addEventListener(
+      "click",
+      closeLightbox
+    );
+
+
+    lightbox.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === lightbox
+        ) {
+
+          closeLightbox();
+
+        }
+
+      }
+    );
+
+
+    /* =======================================================
+       ESCAPE KEY
+    ======================================================= */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Escape") {
+
+          closeLightbox();
+
+          menu.classList.remove(
+            "open"
+          );
+
+          document.body.classList.remove(
+            "locked"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =======================================================
+       HERO PARALLAX
+    ======================================================= */
+
+    const heroImage =
+      document.querySelector(
+        ".hero-image"
+      );
+
+
+    let parallaxTicking = false;
+
+    window.addEventListener("scroll", () => {
+      if (parallaxTicking) return;
+      parallaxTicking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < window.innerHeight && !document.body.classList.contains("locked")) {
+          heroImage.style.transform = `translate3d(0, ${y * .08}px, 0) scale(1.02)`;
+        }
+        parallaxTicking = false;
+      });
+    }, { passive: true });
+
+  </script>
+
+</body>
+</html>
