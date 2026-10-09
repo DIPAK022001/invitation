@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dipak × Krupa — Spatial Engagement Edition</title>
+  <meta name="description" content="Spatial UI Engagement Invitation for Dipak & Krupa on 20 December 2026.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Marcellus&family=Noto+Serif+Gujarati:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --space-black: #060809;
+      --glass-base: rgba(18, 22, 28, 0.55);
+      --glass-rim: rgba(255, 255, 255, 0.14);
+      --glass-gold-rim: rgba(224, 182, 102, 0.35);
+      --gold-specular: #e5c378;
+      --gold-glow: rgba(229, 195, 120, 0.3);
+      --ivory-white: #f8fafc;
+      --ivory-dim: #94a3b8;
+      --emerald-depth: #08231a;
+
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-guj: 'Noto Serif Gujarati', serif;
+      --font-accent: 'Marcellus', serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--space-black);
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #111a1d 0%, #06090a 60%, var(--space-black) 100%);
+      color: var(--ivory-white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Ambient Spatial Depth Glows */
+    .spatial-mesh {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(229, 195, 120, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(8, 35, 26, 0.35) 0%, transparent 60%);
+    }
+
+    /* Spatial Canvas Sparks */
+    #ambientCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* =========================================================
+       SPATIAL 3D GLASS PANES & TILT SYSTEM
+    ========================================================= */
+    .spatial-stage {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 80px 24px 140px;
+      position: relative;
+      z-index: 10;
+      perspective: 1200px;
+    }
+
+    .spatial-glass {
+      background: var(--glass-base);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid var(--glass-rim);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 32px;
+      padding: 48px;
+      box-shadow:
+        0 24px 50px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 0 20px rgba(229, 195, 120, 0.03);
+      transform-style: preserve-3d;
+      transition: transform 0.25s ease-out, box-shadow 0.3s ease;
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .spatial-glass:hover {
+      border-color: var(--glass-gold-rim);
+      box-shadow:
+        0 30px 65px rgba(0, 0, 0, 0.8),
+        0 0 35px var(--gold-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    /* =========================================================
+       HERO SPATIAL SLAB & 3D CSS SOLITAIRE
+    ========================================================= */
+    .hero-spatial {
+      text-align: center;
+      padding: 70px 30px;
+    }
+
+    .shubh-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 40px;
+      background: rgba(229, 195, 120, 0.1);
+      border: 1px solid var(--glass-gold-rim);
+      color: var(--gold-specular);
+      font-family: var(--font-guj);
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+      transform: translateZ(30px);
+    }
+
+    /* PURE CSS 3D SPATIAL FLOATING RING */
+    .spatial-ring-viewport {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 30px;
+      perspective: 800px;
+      transform: translateZ(40px);
+    }
+
+    .spatial-ring-core {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: orbitRing 9s linear infinite;
+    }
+
+    @keyframes orbitRing {
+      0% { transform: rotateX(25deg) rotateY(0deg) translateZ(10px); }
+      100% { transform: rotateX(25deg) rotateY(360deg) translateZ(10px); }
+    }
+
+    .ring-bevel-band {
+      position: absolute;
+      inset: 12px;
+      border: 7px solid var(--gold-specular);
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(229, 195, 120, 0.7), inset 0 0 15px rgba(229, 195, 120, 0.4);
+    }
+
+    .ring-gem-point {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle at 30% 30%, #ffffff 0%, #93c5fd 60%, #38bdf8 100%);
+      border: 1px solid #fff;
+      box-shadow: 0 0 30px #ffffff, 0 0 50px rgba(56, 189, 248, 0.8);
+    }
+
+    .hero-title-spatial {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8.5vw, 84px);
+      letter-spacing: 4px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      transform: translateZ(45px);
+    }
+
+    .hero-title-spatial span {
+      display: inline-block;
+      font-family: var(--font-accent);
+      color: var(--gold-specular);
+      font-style: italic;
+      margin: 0 10px;
+    }
+
+    .hero-subtitle {
+      max-width: 580px;
+      margin: 0 auto 35px;
+      font-family: var(--font-guj);
+      font-size: 16px;
+      color: var(--ivory-dim);
+      line-height: 1.9;
+      transform: translateZ(25px);
+    }
+
+    .spatial-date-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 32px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-rim);
+      font-family: var(--font-body);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ivory-white);
+      transform: translateZ(30px);
+    }
+
+    /* SPATIAL COUNTDOWN SYSTEM */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 540px;
+      margin: 45px auto 0;
+      transform: translateZ(35px);
+    }
+
+    .timer-tile {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 16px 10px;
+      text-align: center;
+    }
+
+    .timer-tile .num {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 6vw, 42px);
+      line-height: 1;
+      color: var(--gold-specular);
+    }
+
+    .timer-tile .lbl {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--ivory-dim);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* =========================================================
+       SECTION HEADINGS
+    ========================================================= */
+    .section-eyebrow {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-specular);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 40px);
+      color: var(--ivory-white);
+      font-weight: 500;
+      margin-bottom: 30px;
+    }
+
+    /* =========================================================
+       PANCH-DEVATA SPATIAL TILES
+    ========================================================= */
+    .gods-spatial-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .god-spatial-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-rim);
+      border-radius: 24px;
+      padding: 24px 14px;
+      text-align: center;
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .god-spatial-card:hover {
+      background: rgba(229, 195, 120, 0.06);
+      border-color: var(--glass-gold-rim);
+      transform: translateZ(20px) translateY(-4px);
+    }
+
+    .god-spatial-avatar {
+      width: 78px;
+      height: 105px;
+      margin: 0 auto 14px;
+      border-radius: 50px 50px 8px 8px;
+      overflow: hidden;
+      border: 1px solid var(--gold-specular);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .god-spatial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .god-spatial-card h4 {
+      font-family: var(--font-guj);
+      font-size: 16px;
+      color: var(--gold-specular);
+      margin-bottom: 4px;
+    }
+
+    .god-spatial-card p {
+      font-family: var(--font-guj);
+      font-size: 12px;
+      color: var(--ivory-dim);
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       STORY & EDITORIAL IMAGE
+    ========================================================= */
+    .story-spatial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .spatial-img-slab {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--glass-rim);
+      position: relative;
+      transform: translateZ(25px);
+    }
+
+    .spatial-img-slab img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-spatial-text h3 {
+      font-family: var(--font-guj);
+      font-size: 30px;
+      color: var(--gold-specular);
+      margin-bottom: 16px;
+    }
+
+    .story-spatial-text p {
+      font-family: var(--font-guj);
+      font-size: 15px;
+      color: var(--ivory-dim);
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    .spatial-quote-pill {
+      border-left: 2px solid var(--gold-specular);
+      padding: 12px 18px;
+      background: rgba(229, 195, 120, 0.05);
+      border-radius: 0 12px 12px 0;
+      font-family: var(--font-guj);
+      font-size: 14.5px;
+      color: var(--ivory-white);
+    }
+
+    /* =========================================================
+       VIDHI ITINERARY TILES
+    ========================================================= */
+    .itinerary-spatial-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .itinerary-tile {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-rim);
+      border-radius: 24px;
+      padding: 35px 22px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .itinerary-tile:hover {
+      border-color: var(--glass-gold-rim);
+      transform: translateZ(15px);
+    }
+
+    .itinerary-tile .time {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold-specular);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .itinerary-tile h4 {
+      font-family: var(--font-guj);
+      font-size: 22px;
+      color: var(--ivory-white);
+      margin-bottom: 8px;
+    }
+
+    .itinerary-tile p {
+      font-family: var(--font-guj);
+      font-size: 13.5px;
+      color: var(--ivory-dim);
+      line-height: 1.8;
+    }
+
+    /* =========================================================
+       VENUE & EMBEDDED MAP SLAB
+    ========================================================= */
+    .venue-spatial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .venue-meta h4 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--gold-specular);
+      margin-bottom: 20px;
+    }
+
+    .venue-item {
+      margin-bottom: 20px;
+    }
+
+    .venue-item span {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-specular);
+      margin-bottom: 4px;
+    }
+
+    .venue-item p {
+      font-size: 15px;
+      color: var(--ivory-white);
+    }
+
+    .spatial-action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .spatial-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 26px;
+      border-radius: 40px;
+      border: 1px solid var(--glass-rim);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--ivory-white);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .spatial-btn:hover {
+      background: var(--gold-specular);
+      border-color: var(--gold-specular);
+      color: #000;
+      box-shadow: 0 0 25px var(--gold-glow);
+    }
+
+    .map-glass-window {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--glass-rim);
+      height: 380px;
+    }
+
+    .map-glass-window iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* =========================================================
+       RSVP SECTION
+    ========================================================= */
+    .rsvp-spatial {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .rsvp-spatial h3 {
+      font-family: var(--font-guj);
+      font-size: 38px;
+      color: var(--gold-specular);
+      margin-bottom: 12px;
+    }
+
+    .rsvp-spatial p {
+      font-family: var(--font-guj);
+      font-size: 15.5px;
+      color: var(--ivory-dim);
+      max-width: 520px;
+      margin: 0 auto 35px;
+      line-height: 2;
+    }
+
+    .whatsapp-spatial-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 42px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .whatsapp-spatial-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5);
+    }
+
+    /* =========================================================
+       BOTTOM VISIONOS FLOATING DOCK
+    ========================================================= */
+    .vision-dock {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(22, 27, 34, 0.65);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+    }
+
+    .dock-pill {
+      color: var(--ivory-dim);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      padding: 8px 16px;
+      border-radius: 30px;
+      transition: all 0.25s;
+    }
+
+    .dock-pill:hover {
+      color: var(--ivory-white);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .dock-audio-btn {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      color: var(--gold-specular);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      transition: all 0.3s;
+    }
+
+    .dock-audio-btn.playing {
+      background: var(--gold-specular);
+      color: #000;
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    /* Footer */
+    .spatial-footer {
+      text-align: center;
+      padding: 40px 20px 80px;
+      font-family: var(--font-guj);
+      font-size: 13px;
+      color: var(--ivory-dim);
+      border-top: 1px solid var(--glass-rim);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .gods-spatial-grid { grid-template-columns: repeat(2, 1fr); }
+      .story-spatial-grid, .venue-spatial-grid { grid-template-columns: 1fr; }
+      .itinerary-spatial-row { grid-template-columns: 1fr; }
+      .spatial-glass { padding: 32px 20px; border-radius: 24px; }
+      .spatial-img-slab img { height: 340px; }
+      .map-glass-window { height: 300px; }
+      .vision-dock { width: calc(100% - 32px); justify-content: space-around; padding: 6px 12px; }
+      .dock-pill { padding: 6px 10px; font-size: 10px; letter-spacing: 1px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Ambient Depth Mesh -->
+  <div class="spatial-mesh"></div>
+  <canvas id="ambientCanvas"></canvas>
+
+  <!-- Background Audio -->
+  <audio id="spatialAudio" loop preload="none">
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939fd99a5.mp3?filename=indian-flute-meditation-122941.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- =======================================================
+       SPATIAL STAGE (MAIN 3D CANVAS)
+  ======================================================== -->
+  <div class="spatial-stage">
+
+    <!-- 1. HERO SPATIAL GLASS PANE -->
+    <section class="spatial-glass hero-spatial" id="hero" data-tilt>
+      <div class="shubh-pill">
+        <span>🪔</span>
+        <span>|| શ્રી ગણેશાય નમઃ ||</span>
+      </div>
+
+      <!-- 3D CSS SOLITAIRE RING -->
+      <div class="spatial-ring-viewport">
+        <div class="spatial-ring-core">
+          <div class="ring-bevel-band"></div>
+          <div class="ring-gem-point"></div>
+        </div>
+      </div>
+
+      <h1 class="hero-title-spatial">
+        DIPAK <span>&</span> KRUPA
+      </h1>
+
+      <p class="hero-subtitle">
+        પરમ પૂજ્ય વડીલો અને કુળદેવી-દેવતાઓના મંગલ આશીર્વાદ સાથે,<br>
+        અમે સગાઈના પવિત્ર મંગલ બંધનમાં જોડાઈ રહ્યા છીએ.
+      </p>
+
+      <div class="spatial-date-pill">
+        <span>20 December 2026</span>
+        <span>·</span>
+        <span>Ahmedabad</span>
+      </div>
+
+      <!-- Live Spatial Countdown -->
+      <div class="countdown-grid">
+        <div class="timer-tile">
+          <div class="num" id="dNum">00</div>
+          <div class="lbl">Days</div>
+        </div>
+        <div class="timer-tile">
+          <div class="num" id="hNum">00</div>
+          <div class="lbl">Hours</div>
+        </div>
+        <div class="timer-tile">
+          <div class="num" id="mNum">00</div>
+          <div class="lbl">Mins</div>
+        </div>
+        <div class="timer-tile">
+          <div class="num" id="sNum">00</div>
+          <div class="lbl">Secs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PANCH-DEVATA SPATIAL SLAB -->
+    <section class="spatial-glass" id="blessings" data-tilt>
+      <span class="section-eyebrow">Divine Presence</span>
+      <h2 class="section-heading">સર્વ દેવતાઓના આશીર્વાદ</h2>
+
+      <div class="gods-spatial-grid">
+        <div class="god-spatial-card">
+          <div class="god-spatial-avatar">
+            <img src="https://images.unsplash.com/photo-1567591414240-e25f8b965f37?auto=format&fit=crop&w=400&q=80" alt="Lord Ganesha">
+          </div>
+          <h4>શ્રી ગણેશ</h4>
+          <p>સર્વ વિઘ્નહર્તા મંગલકારી દેવ</p>
+        </div>
+
+        <div class="god-spatial-card">
+          <div class="god-spatial-avatar">
+            <img src="https://images.unsplash.com/photo-1609372332255-611485350f25?auto=format&fit=crop&w=400&q=80" alt="Radha Krishna">
+          </div>
+          <h4>રાધા-કૃષ્ણ</h4>
+          <p>દિવ્ય પ્રેમ અને શાશ્વત સમર્પણ</p>
+        </div>
+
+        <div class="god-spatial-card">
+          <div class="god-spatial-avatar">
+            <img src="https://images.unsplash.com/photo-1608959958747-d5d1945e4125?auto=format&fit=crop&w=400&q=80" alt="Shiv Parvati">
+          </div>
+          <h4>શિવ-પાર્વતી</h4>
+          <p>અખંડ સૌભાગ્ય અને સુખી દાંપત્ય</p>
+        </div>
+
+        <div class="god-spatial-card">
+          <div class="god-spatial-avatar">
+            <img src="https://images.unsplash.com/photo-1545232979-fbf67119056d?auto=format&fit=crop&w=400&q=80" alt="Sita Rama">
+          </div>
+          <h4>સીતા-રામ</h4>
+          <p>ધર્મ, સત્ય અને મર્યાદાના આદર્શ</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. STORY & EDITORIAL IMAGE -->
+    <section class="spatial-glass" id="story" data-tilt>
+      <div class="story-spatial-grid">
+        <div class="spatial-img-slab">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=90" alt="Dipak and Krupa Portrait">
+        </div>
+
+        <div class="story-spatial-text">
+          <span class="section-eyebrow">Our Union</span>
+          <h3>સાચી પ્રીતનો સંગાથ</h3>
+          <p>
+            બે સંસ્કારી પરિવારોનું મિલન અને બે પ્રેમાળ હૃદયનો અતૂટ વિશ્વાસ. એકબીજા સાથે જિંદગીના પ્રત્યેક ડગલે સાથ નિભાવવાની આ પવિત્ર સફરની શરૂઆત છે.
+          </p>
+          <div class="spatial-quote-pill">
+            "જ્યાં આદર અને વડીલોના આશીર્વાદ હોય, ત્યાં સંબંધ હંમેશાં શાશ્વત બને છે."
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. VIDHI ITINERARY -->
+    <section class="spatial-glass" id="vidhi" data-tilt>
+      <span class="section-eyebrow">Shubh Muhurat</span>
+      <h2 class="section-heading">સગાઈ સમારોહ વિધિ</h2>
+
+      <div class="itinerary-spatial-row">
+        <div class="itinerary-tile">
+          <div class="time">07:00 PM</div>
+          <h4>ગણેશ પૂજન</h4>
+          <p>વિઘ્નહર્તા ગણેશજીની આરાધના કરી નિર્વિઘ્ન કાર્ય અને પ્રગતિની મંગલ પ્રાર્થના.</p>
+        </div>
+
+        <div class="itinerary-tile">
+          <div class="time" style="color: #6ee7b7;">07:45 PM</div>
+          <h4>ગોળ-ધાણા & સગાઈ</h4>
+          <p>મોં મીઠું કરાવી ગોળ-ધાણા વહેંચણી અને પવિત્ર સુવર્ણ વીંટીનું મંગલ આદાન-પ્રદાન.</p>
+        </div>
+
+        <div class="itinerary-tile">
+          <div class="time">08:30 PM ONWARDS</div>
+          <h4>પ્રીતિભોજન</h4>
+          <p>સ્નેહીજનોના સંગાથે પરંપરાગત શાહી ગુજરાતી ભોજનનો રસાસ્વાદ.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. VENUE & GOOGLE MAPS -->
+    <section class="spatial-glass" id="venue" data-tilt>
+      <div class="venue-spatial-grid">
+        <div class="venue-meta">
+          <span class="section-eyebrow">Celebration Venue</span>
+          <h4>The Grand Thakar</h4>
+
+          <div class="venue-item">
+            <span>Date & Time</span>
+            <p>Sunday, 20 December 2026 · 07:00 PM Onwards</p>
+          </div>
+
+          <div class="venue-item">
+            <span>Location</span>
+            <p>Banquet Hall, Odhav, Ahmedabad - 382415</p>
+          </div>
+
+          <div class="spatial-action-row">
+            <a class="spatial-btn" href="https://www.google.com/maps/place/The+Grand+Thakar+(Odhav)/@23.0173123,72.6695291,687m" target="_blank" rel="noopener">
+              Open Maps →
+            </a>
+            <a class="spatial-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dipak+%26+Krupa+Engagement+Ceremony&dates=20261220T133000Z/20261220T180000Z&details=Sagayi+Ceremony+at+The+Grand+Thakar,+Odhav&location=The+Grand+Thakar,+Odhav,+Ahmedabad" target="_blank" rel="noopener">
+              Add to Calendar +
+            </a>
+          </div>
+        </div>
+
+        <div class="map-glass-window">
+          <iframe
+            src="https://www.google.com/maps?q=The%20Grand%20Thakar%2C%20Odhav%2C%20Ahmedabad&output=embed"
+            loading="lazy"
+            title="The Grand Thakar Venue Map"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. RSVP SPATIAL GLASS -->
+    <section class="spatial-glass rsvp-spatial" id="rsvp" data-tilt>
+      <h3>પધારો સપરિવાર</h3>
+      <p>
+        આપશ્રીની ઉપસ્થિતિ અને આશીર્વાદ અમારા આ મંગલ ઉત્સવની શોભા વધારશે.<br>
+        કૃપા કરીને આપની પધરામણીની પુષ્ટિ વ્હોટ્સએપ દ્વારા જરૂરથી જણાવશોજી.
+      </p>
+
+      <a
+        class="whatsapp-spatial-cta"
+        href="https://wa.me/919724946789?text=Namaste%20Dipak%20%26%20Krupa%2C%20we%20will%20be%20happy%20to%20attend%20your%20Sagayi%20Ceremony%20on%2020th%20December%202026%20in%20Ahmedabad!"
+        target="_blank"
+        rel="noopener"
+      >
+        Confirm RSVP via WhatsApp
+      </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="spatial-footer">
+      || સ્નેહાધીન : દીપક અને કૃપા ના પરિવારો ||<br>
+      ૨૦ ડિસેમ્બર ૨૦૨૬ · અમદાવાદ, ગુજરાત
+    </footer>
+
+  </div>
+
+  <!-- =======================================================
+       FLOATING VISIONOS GLASS DOCK (BOTTOM CONTROLS)
+  ======================================================== -->
+  <nav class="vision-dock">
+    <a href="#hero" class="dock-pill">Overview</a>
+    <a href="#blessings" class="dock-pill">Blessings</a>
+    <a href="#vidhi" class="dock-pill">Muhurat</a>
+    <a href="#venue" class="dock-pill">Venue</a>
+    <a href="#rsvp" class="dock-pill">RSVP</a>
+    <button class="dock-audio-btn" id="dockAudioToggle" aria-label="Toggle Shehnai Music">
+      ♪
+    </button>
+  </nav>
+
+  <!-- =======================================================
+       SCRIPTS: GYROSCOPE/TILT + PARTICLES + COUNTDOWN
+  ======================================================== -->
+  <script>
+    // 1. SPATIAL TILT PARALLAX EFFECT
+    const tiltCards = document.querySelectorAll("[data-tilt]");
+
+    tiltCards.forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+      });
+    });
+
+    // 2. AMBIENT SPARKLES CANVAS
+    const canvas = document.getElementById("ambientCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    const particles = [];
+    for (let i = 0; i < 28; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2 + 1,
+        speed: Math.random() * 0.4 + 0.2,
+        alpha: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    function renderAmbient() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.y += p.speed;
+        if (p.y > h) p.y = -5;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(229, 195, 120, ${p.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(renderAmbient);
+    }
+    renderAmbient();
+
+    // 3. AUDIO PLAYBACK TOGGLE
+    const audio = document.getElementById("spatialAudio");
+    const audioBtn = document.getElementById("dockAudioToggle");
+
+    audioBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          audioBtn.classList.add("playing");
+        }).catch(() => {});
+      } else {
+        audio.pause();
+        audioBtn.classList.remove("playing");
+      }
+    });
+
+    // 4. LIVE COUNTDOWN (20 Dec 2026, 19:00 IST)
+    const target = new Date("2026-12-20T19:00:00+05:30").getTime();
+    const dNum = document.getElementById("dNum");
+    const hNum = document.getElementById("hNum");
+    const mNum = document.getElementById("mNum");
+    const sNum = document.getElementById("sNum");
+
+    function updateCountdown() {
+      const diff = target - Date.now();
+      if (diff <= 0) return;
+
+      dNum.textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      hNum.textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      mNum.textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      sNum.textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+</body>
+</html>
